@@ -1,0 +1,32 @@
+class Solution{   
+public:
+//memoization
+bool fun(int id,int t,vector<int>&arr,vector<vector<int>>&dp)
+ {
+     if(t==0)return true;
+     if(id==0)
+    {
+        if(t==arr[0])
+        return true ;
+        else
+        return false;
+    }
+    if(dp[id][t]!=-1)return dp[id][t];
+     
+     bool ntake=fun(id-1,t,arr,dp);
+     bool take =false;
+     if(arr[id]<=t)
+     {
+         take=fun(id-1,t-arr[id],arr,dp);
+     }
+     return dp[id][t]=(take||ntake);
+     
+ }
+    bool isSubsetSum(vector<int>arr, int t){
+        int n=arr.size();
+        vector<vector<int>>dp(n,vector<int>(t+1,-1));
+        
+       return  fun(n-1,t,arr,dp);
+      
+    }
+};
